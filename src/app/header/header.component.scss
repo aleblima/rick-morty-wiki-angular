@@ -1,0 +1,17 @@
+.navbar {
+    position: fixed; /* O segredo para travar no topo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px; /* Altura do header */
+    background-color: #000; /* Preto do Rick & Morty */
+    z-index: 1000; /* Garante que ele fique EM CIMA dos cards */
+    box-sizing: border-box; //coloca no calculo de altura e largura o tamanho da navbar
+    
+    /* Flexbox para alinhar o logo na esquerda e botões na direita */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+  }
+  
