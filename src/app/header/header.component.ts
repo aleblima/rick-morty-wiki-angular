@@ -65,12 +65,10 @@ export class HeaderComponent implements AfterViewInit {
       .to(
         '.btn',
         {
-          backgroundColor: '#888',
-          border: '1px solid #000',
           borderRadius: '48px', // Arredonda
           padding: '4px 12px', // Dá um respiro interno
           marginRight: '8px', // Garante que não cole na borda da tela
-          duration: 0.3,
+          duration: 0.4,
         },
         0,
       )
@@ -91,22 +89,25 @@ export class HeaderComponent implements AfterViewInit {
         },
         0,
       )
-      .to(this.badgeRef.nativeElement, {
-        backgroundColor: 'transparent',
-        border: 'none',
-        boxShadow: 'none',
-        color: '#ffffff',
-        fontSize: '10px',
-        fontWeight: 'bold',
-        position: 'absolute',
-        top: '8px',
-        right: '11px',
-        width: 'auto',
-        height: 'auto',
-        padding: 0,
-        margin: 0,
-        duration: 0.3,
-      });
+      .to(
+        this.badgeRef.nativeElement,
+        {
+          backgroundColor: 'transparent',
+          border: 'none',
+          boxShadow: 'none',
+          padding: 0,
+          fontSize: '10px',
+          fontWeight: '700',
+          top: '3px',
+          yPercent: 0,
+          right: '5px',
+          width: 'auto',
+          height: 'auto',
+          minWidth: 'auto',
+          duration: 0.4,
+        },
+        0,
+      );
   }
 
   @HostListener('window:scroll', [])
