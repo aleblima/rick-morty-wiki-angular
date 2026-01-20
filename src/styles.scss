@@ -1,9 +1,20 @@
+html,
 body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #24282f; /* Movemos a cor de fundo para cá */
   font-family: "Poppins", sans-serif;
   height: 200vh;
 }
 
-h1 {
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2 {
   font-family: "Creepster", cursive;
   letter-spacing: 2px; /* Dica: Fontes estilizadas ficam melhores com espaçamento */
 }

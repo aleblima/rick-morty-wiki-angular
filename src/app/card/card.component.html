@@ -1,0 +1,14 @@
+<div class="char-card">
+  <div class="char-image">
+    <img [src]="character.image" [alt]="character.name" />
+    <button class="fav-btn" (click)="toggleFavorite(character)">
+      <i class="suit-heart-fill" *ngIf="isFavorite"></i>
+      <i class="suit-heart" *ngIf="!isFavorite"></i>
+    </button>
+  </div>
+
+  <div class="char-info">
+    <h2>{{ character.name }}</h2>
+    <p class="species">{{ character.species }}</p>
+  </div>
+</div>
