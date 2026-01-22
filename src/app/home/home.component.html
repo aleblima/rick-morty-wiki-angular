@@ -1,1 +1,34 @@
-<p>home works!</p>
+<div class="container">
+  <div class="header">
+    <h1 class="title">Início</h1>
+    <input
+      type="text"
+      placeholder="Pesquisar"
+      class="search"
+      (input)="onSearch($event)"
+    />
+  </div>
+  <div class="grid" *ngIf="characters.length > 0">
+    <app-card
+      *ngFor="let character of characters"
+      [character]="character"
+    ></app-card>
+  </div>
+  <div class="empty-state" *ngIf="characters.length === 0">
+    <h2>Nada foi encontrado</h2>
+    <p>Tente realizar uma nova busca.</p>
+  </div>
+  <div class="pagination">
+    <button
+      (click)="changePage(-1)"
+      [disabled]="currentPage === 1"
+      class="page-btn"
+    >
+      <i class="bi bi-arrow-left"></i> Anterior
+    </button>
+    <span class="page-number"> Página {{ currentPage }}</span>
+    <button (click)="changePage(+1)" class="page-btn">
+      <i class="bi bi-arrow-right"></i> Próxima
+    </button>
+  </div>
+</div>

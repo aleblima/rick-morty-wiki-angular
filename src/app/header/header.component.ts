@@ -1,22 +1,141 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
-import { RouterLink, RouterLinkActive } from "@angular/router";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  ViewChild,
+} from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { gsap } from 'gsap';
+import { RickMortyService } from '../services/rick-morty.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
+export class HeaderComponent implements AfterViewInit {
+  favoritesCount = 0;
 
+  constructor(
+    private router: Router,
+    private service: RickMortyService,
+  ) {}
 
-export class HeaderComponent {
+  ngOnInit() {
+    this.service.favorites$.subscribe((favorites) => {
+      this.favoritesCount = favorites.length;
+    });
+  }
+  /* GSAP */
+  @ViewChild('headerRef') header!: ElementRef;
+  @ViewChild('logoRef') logo!: ElementRef;
+  @ViewChild('menuTextRef') navTexts!: ElementRef; // Você precisará por uma classe ou ref nos textos
+  @ViewChild('badgeRef') badgeRef!: ElementRef;
 
-  isScrolled = false;
+  private timeline: gsap.core.Timeline | null = null;
+  private isCollapsed = false;
+
+  ngAfterViewInit() {
+    // Cria a linha do tempo PAUSADA. Só vamos tocar ela quando rolar.
+    this.timeline = gsap.timeline({
+      paused: true,
+      defaults: { duration: 0.4, ease: 'power2.inOut' },
+    });
+
+    onReverseComplete: () => {
+      gsap.set('.icon, .text, .navbar, .logo, .badge, .menu', {
+        clearProps: 'all',
+      });
+    };
+    // Definimos o que acontece na animação (O "Roteiro" da mudança)
+    this.timeline
+      .to(
+        '.logo',
+        {
+          left: '50%',
+          xPercent: -50, // Isso garante o centro exato
+          scale: 1.4,
+          position: 'absolute',
+          duration: 0.7,
+        },
+        0,
+      )
+      .to(
+        '.text',
+        {
+          // Classe que você vai por no "Início" e "Favoritos"
+          width: 0,
+          opacity: 0,
+          display: 'none', // GSAP sabe lidar com display none no final da animação
+          duration: 0.5,
+        },
+        0,
+      )
+      .to(
+        '.btn',
+        {
+          borderRadius: '48px', // Arredonda
+          padding: '4px 12px', // Dá um respiro interno
+          marginRight: '8px', // Garante que não cole na borda da tela
+          duration: 0.4,
+        },
+        0,
+      )
+      .to(
+        '.navbar',
+        {
+          height: '60px',
+          duration: 0.4,
+          backgroundColor: 'transparent',
+        },
+        0,
+      )
+      .to(
+        '.menu',
+        {
+          border: 'none',
+          duration: 0.01,
+        },
+        0,
+      )
+      .to(
+        this.badgeRef.nativeElement,
+        {
+          backgroundColor: 'transparent',
+          border: 'none',
+          boxShadow: 'none',
+          padding: 0,
+          fontSize: '10px',
+          fontWeight: '700',
+          top: '3px',
+          yPercent: 0,
+          right: '5px',
+          width: 'auto',
+          height: 'auto',
+          minWidth: 'auto',
+          duration: 0.4,
+        },
+        0,
+      );
+  }
+
   @HostListener('window:scroll', [])
-onWindowScroll(){
-  this.isScrolled = window.scrollY > 50;
-}
+  onWindowScroll() {
+    const scrollY = window.scrollY;
 
+    // Se desceu mais que 50px e ainda não colapsou
+    if (scrollY > 50 && !this.isCollapsed) {
+      this.timeline?.play(); // Toca a animação de ida
+      this.isCollapsed = true;
+    }
+    // Se voltou pro topo e está colapsado
+    else if (scrollY <= 50 && this.isCollapsed) {
+      this.timeline?.reverse(); // Toca a animação de volta (rewind)
+      this.isCollapsed = false;
+    }
+  }
 }
