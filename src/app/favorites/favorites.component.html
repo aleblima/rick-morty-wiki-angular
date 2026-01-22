@@ -1,1 +1,11 @@
-<h1>Favorite works!</h1>
+<div class="container">
+  <h1 class="title">FAVORITOS</h1>
+
+  <div class="grid">
+    <app-card *ngFor="let item of favoritesList" [character]="item"> </app-card>
+  </div>
+
+  <p *ngIf="favoritesList.length === 0" style="color: white">
+    Você ainda não tem favoritos.
+  </p>
+</div>

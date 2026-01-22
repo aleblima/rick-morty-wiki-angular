@@ -36,18 +36,15 @@
       z-index: 10;
       transition: transform 0.2s ease;
       i {
-        font-size: 1.8rem; /* Tamanho do coração */
-        color: white; /* Cor da borda (coração vazio) */
-        filter: drop-shadow(
-          0 2px 4px rgba(0, 0, 0, 0.6)
-        ); /* Sombra para destacar em fundos claros */
-      }
+        font-size: 1.8rem;
+        color: white;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
 
-      /* Quando estiver favoritado (Coração Cheio) */
-      .suit-heart-fill {
-        color: #000; /* Preto conforme seu layout (ou use red para vermelho) */
-        /* Dica: Se o preto sumir em fundos escuros, adicione: */
-        /* -webkit-text-stroke: 1px white; */
+        .suit-heart-fill {
+          color: #000; /* Preto conforme seu layout (ou use red para vermelho) */
+          /* Dica: Se o preto sumir em fundos escuros, adicione: */
+          /* -webkit-text-stroke: 1px white; */
+        }
       }
 
       &:hover {

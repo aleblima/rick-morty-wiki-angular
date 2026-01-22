@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RickMortyService } from '../services/rick-morty.service';
 
 @Component({
   selector: 'app-card',
@@ -13,7 +14,18 @@ export class CardComponent {
 
   isFavorite = false;
 
-  toggleFavorite(character: any) {
-    this.isFavorite = !this.isFavorite;
+  constructor(private service: RickMortyService) {}
+
+  ngOnInit() {
+    this.checkFavoriteStatus();
+  }
+
+  toggleFavorite() {
+    this.service.toggleFavorite(this.character);
+    this.checkFavoriteStatus();
+  }
+
+  checkFavoriteStatus() {
+    this.isFavorite = this.service.isFavorite(this.character.id);
   }
 }

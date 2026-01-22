@@ -6,8 +6,9 @@ import {
   HostListener,
   ViewChild,
 } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { gsap } from 'gsap';
+import { RickMortyService } from '../services/rick-morty.service';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,19 @@ import { gsap } from 'gsap';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements AfterViewInit {
-  // Pegamos as referências dos elementos HTML para o GSAP controlar
+  favoritesCount = 0;
+
+  constructor(
+    private router: Router,
+    private service: RickMortyService,
+  ) {}
+
+  ngOnInit() {
+    this.service.favorites$.subscribe((favorites) => {
+      this.favoritesCount = favorites.length;
+    });
+  }
+  /* GSAP */
   @ViewChild('headerRef') header!: ElementRef;
   @ViewChild('logoRef') logo!: ElementRef;
   @ViewChild('menuTextRef') navTexts!: ElementRef; // Você precisará por uma classe ou ref nos textos
