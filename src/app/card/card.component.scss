@@ -91,3 +91,11 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .char-info {
+    h2 {
+      font-size: 1.4rem; /* Nome um pouco menor */
+    }
+  }
+}

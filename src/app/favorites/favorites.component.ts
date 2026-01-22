@@ -19,5 +19,6 @@ export class FavoritesComponent {
 
   ngOnInit() {
     this.favoritesList = this.service.getFavorites();
+    window.scrollTo(0, 0);
   }
 }

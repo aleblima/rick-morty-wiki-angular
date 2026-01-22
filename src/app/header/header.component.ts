@@ -127,6 +127,9 @@ export class HeaderComponent implements AfterViewInit {
   onWindowScroll() {
     const scrollY = window.scrollY;
 
+    if (window.innerWidth < 768) {
+      return;
+    }
     // Se desceu mais que 50px e ainda não colapsou
     if (scrollY > 50 && !this.isCollapsed) {
       this.timeline?.play(); // Toca a animação de ida

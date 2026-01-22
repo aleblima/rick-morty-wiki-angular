@@ -109,3 +109,39 @@
     transform: none;
   }
 }
+
+/* --- RESPONSIVIDADE HOME --- */
+@media (max-width: 768px) {
+  .main-container {
+    padding-top: 180px; /* Mais espaço no topo pois o header pode ter ficado mais alto */
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  /* Empilha o Título e a Busca */
+  .header-controls {
+    flex-direction: column; /* Um embaixo do outro */
+    align-items: stretch; /* Estica para ocupar a largura */
+    gap: 20px;
+  }
+
+  .page-title {
+    font-size: 2.5rem; /* Título um pouco menor */
+    text-align: center; /* Centralizado */
+  }
+
+  /* Barra de pesquisa ocupa 100% da largura */
+  .search-input {
+    width: 100%;
+  }
+
+  /* Ajuste da Grade de Cards para telas muito pequenas */
+  .characters-grid {
+    /* Diminui o tamanho mínimo do card para caber em telas estreitas (iPhone SE, etc) */
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(100%, 1fr)
+    ); /* 1 coluna cheia no celular */
+    gap: 20px;
+  }
+}
